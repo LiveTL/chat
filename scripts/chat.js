@@ -145,12 +145,35 @@ const parseMessageDeletedAction = (action) => {
   };
 };
 
+const parsePinnedMessageAction = (action) => {
+  const baseRenderer = action.bannerRenderer?.liveChatBannerRenderer;
+  if (!baseRenderer) {
+    return false;
+  }
+  const parsedContents = parseAddChatItemAction(
+    { item: baseRenderer.contents }
+  );
+  if (!parsedContents) {
+    return false;
+  }
+  return {
+    type: 'messagePinned',
+    item: {
+      header: parseMessageRuns(
+        baseRenderer.header.liveChatBannerHeaderRenderer.text.runs
+      ),
+      contents: parsedContents.item
+    }
+  };
+};
+
 const messageReceiveCallback = async (response, isInitial = false) => {
   response = JSON.parse(response);
   try {
     const actions = [];
-    const actionsObject = response?.continuationContents?.liveChatContinuation?.actions ||
-      response?.contents?.liveChatRenderer?.actions;
+    const actionsObject =
+      response.continuationContents?.liveChatContinuation.actions ||
+      response.contents?.liveChatRenderer.actions;
     if (!actionsObject) {
       console.debug('Response was invalid', response);
       return;
@@ -171,6 +194,10 @@ const messageReceiveCallback = async (response, isInitial = false) => {
         } else if (action.markChatItemAsDeletedAction) {
           parsedAction = parseMessageDeletedAction(
             action.markChatItemAsDeletedAction
+          );
+        } else if (action.addBannerToLiveChatCommand) {
+          parsedAction = parsePinnedMessageAction(
+            action.addBannerToLiveChatCommand
           );
         }
         if (!parsedAction) {
