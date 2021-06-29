@@ -199,6 +199,8 @@ const messageReceiveCallback = async (response, isInitial = false) => {
           parsedAction = parsePinnedMessageAction(
             action.addBannerToLiveChatCommand
           );
+        } else if (action.removeBannerForLiveChatCommand) {
+          parsedAction = { type: 'removePinned' };
         }
         if (!parsedAction) {
           return;
