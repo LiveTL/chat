@@ -116,7 +116,7 @@
           elevation="3"
           fixed
           bottom
-          style="left: 50%; transform: translateX(-50%)"
+          style="left: 50%; transform: translateX(-50%); width: 32px; height: 32px"
           color="#0287C3"
           fab
           @click="scrollToBottom"
