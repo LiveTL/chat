@@ -20,51 +20,53 @@
         >
           <div v-if="message.info.welcomeMessage" class="message text-left highlighted"
             v-show="message.shown">
-            <span style="margin-bottom: 5px; display: inline-block">
+            <div style="margin-bottom: 4px; display: flex; align-items: center">
+              <img
+                src="./../assets/logo.png"
+                style="
+                  height: 2.5em;
+                  vertical-align: middle;
+                  border-radius: 100%;
+                  border: 0.25em solid gray;
+                  margin-right: 5px;
+                  background-color: white;
+                "
+              />
               <strong style="font-size: 1.5em">
-                <img
-                  src="./../assets/logo.png"
-                  style="
-                    height: 2.5em;
-                    vertical-align: middle;
-                    border-radius: 100%;
-                    border: 0.25em solid gray;
-                    margin-right: 5px;
-                    background-color: white;
-                  "
-                />
                 Welcome to HyperChat by LiveTL!
               </strong>
-            </span>
-            <br />
-            <span>
+            </div>
+            <div style="margin-bottom: 8px;">
               <i>It may take a few seconds for messages to start appearing.</i>
-              <br />
+            </div>
+            <div style="margin-bottom: 8px;">
               <strong>HyperChat can reduce CPU usage by up to 80%!</strong>
-              <span style="font-size: 1em; display: inline-block">
-                Don't forget to
-                <CustomLink
-                  href="#/review"
-                  >drop a 5-star review</CustomLink
-                >,
-                <CustomLink
-                  href="https://livetl.app/hyperchat"
-                  >share with your friends</CustomLink
-                >, <CustomLink
-                  href="https://discord.gg/uJrV3tmthg"
-                  >join our Discord server</CustomLink
-                >,
-                <CustomLink
-                  href="https://github.com/LiveTL/HyperChat"
-                  >star the GitHub repository</CustomLink
-                >, and <CustomLink
-                  href="https://opencollective.com/livetl"
-                  >
-                  chip in a few dollars to help fund future projects (stay tuned)</CustomLink>!
-              </span>
-              <br /><br />
-              <strong>NEW IN {{ update.version }}:</strong> {{ update.comments }}
-            </span>
+            </div>
+            <div style="font-size: 1em; display: inline-block; margin-bottom: 8px; margin-bottom: 8px;">
+              Don't forget to
+              <CustomLink
+                href="#/review"
+                >drop a 5-star review</CustomLink
+              >,
+              <CustomLink
+                href="https://livetl.app/hyperchat"
+                >share with your friends</CustomLink
+              >, <CustomLink
+                href="https://discord.gg/uJrV3tmthg"
+                >join our Discord server</CustomLink
+              >,
+              <CustomLink
+                href="https://github.com/LiveTL/HyperChat"
+                >star the GitHub repository</CustomLink
+              >, and <CustomLink
+                href="https://opencollective.com/livetl"
+                >
+                chip in a few dollars to help fund future projects (stay tuned)</CustomLink>!
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span>New in <strong>{{ update.version }}:</strong></span>
+              <span>{{ update.comments }}</span>
+            </div>
           </div>
           <div
             v-else
@@ -82,12 +84,12 @@
             }"
           >
             <strong
-              style="margin-right: 5px; text-decoration: underline"
+              style="margin-right: 4px; text-decoration: underline"
               v-if="message.info.superchat"
               >{{ message.info.superchat.amount }}</strong
             >
             <strong
-              style="margin-right: 5px"
+              style="margin-right: 4px"
               :class="
                 (message.info.author.types || []).map((d) => d.split(' ')[0])
               "
@@ -366,9 +368,11 @@ export default {
   overflow: hidden;
   padding: 6px;
   text-overflow: ellipsis;
+  border-radius: 4px;
 }
 .messageContainer:nth-child(odd) {
   background-color: #86868621;
+  border-radius: 4px;
 }
 .content {
   overflow-y: scroll;
@@ -418,10 +422,7 @@ html {
 .dark .member,
 .dark .new {
   color: #04B301;
-}
-.member,
-.new {
-  color: #0E5D10;
+  font-weight: 500;
 }
 .deleted {
   font-style: italic;
@@ -435,7 +436,7 @@ html {
   color: black;
 }
 .lowpadding {
-  padding: 0px 10px 0px 10px !important;
+  padding: 0px 10px 4px 10px !important;
 }
 * {
   overflow-wrap: anywhere;
